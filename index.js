@@ -67,6 +67,96 @@ try {
 }  
 })
 
+/*//!Endpoints NOMBRE
+app.get("/koders/:nombre", async (request,response)=>{
+    const { body, params  } = request
+
+try {
+    const koder = await Koder.find({nombre : params.nombre})
+    console.log("koder",params.nombre)
+    console.log(koder.length)
+    if(koder.length === 0){
+            response.status(404)
+            response.json({
+                success: false,
+                message: `${params.nombre} not found`,
+                
+            })
+        }else {
+        response.status(201)
+        response.json({
+            success: true,
+            data: {koder}
+        })
+    }
+} catch(error) {
+    console.log("error",error)
+        response.status(400)
+        response.json({
+            success: false,
+            message: error.message
+        })
+}  
+})
+*/
+
+/*//!Endpoints BY ID
+app.get("/koders/:id", async (request,response)=>{
+    const { body, params  } = request
+
+try {
+    const koder = await Koder.findById(params.id)
+    console.log("koder",params.nombre)
+    console.log(koder.length)
+
+        response.status(201)
+        response.json({
+            success: true,
+            data: {koder}
+        })
+    
+} catch(error) {
+    console.log("error",error)
+        response.status(400)
+        response.json({
+            success: false,
+            message: error.message
+        })
+}  
+})
+*/
+
+//!Endpoints BY ID
+app.get("/koders", async (request,response)=>{
+    const { body, params, query  } = request
+
+try {
+    const koder = await Koder.find(query)
+    console.log("koder",params.nombre)
+    console.log(query)
+    if(koder.length === 0){
+            response.status(404)
+            response.json({
+                success: false,
+                message: `Koder not found`,
+                
+            })
+        }else {
+        response.status(201)
+        response.json({
+            success: true,
+            data: {koder}
+        })
+    }
+} catch(error) {
+    console.log("error",error)
+        response.status(400)
+        response.json({
+            success: false,
+            message: error.message
+        })
+}  
+})
 
 
 const URL = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`
