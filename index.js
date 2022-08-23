@@ -128,7 +128,7 @@ try {
 
 //!Endpoints BY ID
 app.get("/koders", async (request,response)=>{
-    const { body, params, query  } = request
+    const { params, query } = request
 
 try {
     const koder = await Koder.find(query)
@@ -157,6 +157,65 @@ try {
         })
 }  
 })
+
+//! PATCH by ID
+app.patch("/koders/:id", async (request,response)=>{
+    const { body, params, query  } = request
+
+    
+try {
+    const updatebyid  = await Koder.findByIdAndUpdate(params.id, body, {returnDocument:"after"} )
+    response.status(200)
+    response.json({
+        success: true,
+        data: {body}
+    })
+   
+} catch(error) {
+    console.log("error",error)
+        response.status(400)
+        response.json({
+            success: false,
+            message: error.message
+        })
+} 
+
+})
+
+
+//!DELETE KODER by ID
+app.delete("/koders/:id", async (request,response)=>{
+    const { params } = request
+
+    
+try {
+    const updatebyid  = await Koder.findByIdAndDelete(params.id)
+    response.status(200)
+    response.json({
+        success: true,
+        message: "Koder deleted successuly"
+    })
+   
+} catch(error) {
+    console.log("error",error)
+        response.status(400)
+        response.json({
+            success: false,
+            message: error.message
+        })
+} 
+
+})
+
+
+
+
+
+
+
+
+
+
 
 
 const URL = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`
